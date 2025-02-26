@@ -23,20 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['draw'])) {
     
     if ($drawnPlayer === null) {
         $message = '<div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">Aucun joueur disponible pour le tirage.</div>';
-    } else {
-        $message = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">Tirage effectué avec succès !</div>';
     }
-    
-    // Actualiser les données après le tirage
-    $usersData = $sheetService->getAllData();
-    $headers = $usersData[0];
-    array_shift($usersData);
-} else {
-    // Récupération des données utilisateurs
-    $usersData = $sheetService->getAllData();
-    $headers = $usersData[0];
-    array_shift($usersData);
 }
+
+$usersData = $sheetService->getAllData();
+$headers = $usersData[0];
+array_shift($usersData);
 ?>
 
 <?php include 'header.php' ?>
@@ -44,7 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['draw'])) {
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Administration</h1>
         <form method="post" action="">
-            <button type="submit" name="draw" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150">
+            <button type="submit" name="draw"
+                    onclick="return confirm('Effectuer un tirage au sort ?');"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150">
                 Tirer au sort un joueur
             </button>
         </form>
@@ -75,8 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['draw'])) {
     </div>
     <?php endif; ?>
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <div class="px-6 py-4 border-b">
+        <div class="px-6 py-4 border-b flex justify-between items-center">
             <h1 class="text-xl font-bold">Liste des utilisateurs inscrits</h1>
+            <a href="admin.php" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-1 px-3 rounded focus:outline-none focus:shadow-outline transition duration-150 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Actualiser
+            </a>
         </div>
 
         <div class="overflow-x-auto">
