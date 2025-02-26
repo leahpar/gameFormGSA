@@ -41,6 +41,18 @@
                        value="<?= htmlspecialchars($data['telephone']??'') ?>"
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500">
             </div>
+            
+            <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    <input id="accept_terms" name="accept_terms" type="checkbox" required
+                           class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="accept_terms" class="font-medium text-gray-700">
+                        J'accepte le <a href="legal.php" class="text-blue-600 hover:underline">règlement du jeu</a>.
+                    </label>
+                </div>
+            </div>
 
             <div>
                 <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
