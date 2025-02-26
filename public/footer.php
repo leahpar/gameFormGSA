@@ -6,7 +6,7 @@
 <!--                &copy; --><?php //echo date('Y'); ?><!-- Système d'Inscription - Tous droits réservés-->
 <!--            </div>-->
 <!--            <div class="mt-4 md:mt-0">-->
-<!--                <a href="legal.php" class="text-sm text-blue-600 hover:text-blue-800">Mentions légales & RGPD</a>-->
+<!--                <a href="reglement" class="text-sm text-blue-600 hover:text-blue-800">Mentions légales & RGPD</a>-->
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->

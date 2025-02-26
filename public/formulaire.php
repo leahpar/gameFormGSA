@@ -77,7 +77,7 @@
                 </div>
                 <div class="ml-3 text-sm">
                     <label for="accept_terms" class="font-medium text-gray-700">
-                        J'accepte le <a href="legal.php" class="text-blue-600 hover:underline">règlement du jeu</a>.
+                        J'accepte le <a href="reglement" class="text-blue-600 hover:underline">règlement du jeu</a>.
                     </label>
                 </div>
             </div>
