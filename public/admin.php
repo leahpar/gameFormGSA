@@ -9,25 +9,71 @@ $dotenv->load(__DIR__ . '/../.env');
 // Import de la classe GoogleSheetService
 use App\GoogleSheetService;
 
-// Récupération des données utilisateurs
+// Initialisation des variables
+$message = '';
+$drawnPlayer = null;
+
+// Instance du service Google Sheet
 $sheetService = new GoogleSheetService();
-$usersData = $sheetService->getAllData();
 
-// Extraction des en-têtes (première ligne)
-$headers = $usersData[0];
-
-// Suppression des en-têtes du tableau de données
-array_shift($usersData);
+// Traitement de la demande de tirage
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['draw'])) {
+    // Effectuer le tirage
+    $drawnPlayer = $sheetService->drawRandomPlayer();
+    
+    if ($drawnPlayer === null) {
+        $message = '<div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">Aucun joueur disponible pour le tirage.</div>';
+    } else {
+        $message = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">Tirage effectué avec succès !</div>';
+    }
+    
+    // Actualiser les données après le tirage
+    $usersData = $sheetService->getAllData();
+    $headers = $usersData[0];
+    array_shift($usersData);
+} else {
+    // Récupération des données utilisateurs
+    $usersData = $sheetService->getAllData();
+    $headers = $usersData[0];
+    array_shift($usersData);
+}
 ?>
 
 <?php include 'header.php' ?>
 <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Administration</h1>
-        <a href="tirage.php" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150">
-            Accéder au tirage au sort
-        </a>
+        <form method="post" action="">
+            <button type="submit" name="draw" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150">
+                Tirer au sort un joueur
+            </button>
+        </form>
     </div>
+    
+    <?php echo $message; ?>
+    
+    <?php if ($drawnPlayer !== null): ?>
+    <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
+        <div class="px-6 py-4 border-b">
+            <h2 class="text-lg font-bold">Résultat du tirage</h2>
+        </div>
+        <div class="p-6">
+            <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                <h3 class="text-xl font-bold text-green-800 mb-4">Joueur tiré au sort :</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <?php foreach ($drawnPlayer as $index => $value): ?>
+                        <?php if (isset($headers[$index])): ?>
+                            <div>
+                                <span class="font-semibold text-gray-700"><?php echo htmlspecialchars($headers[$index]); ?> :</span>
+                                <span class="text-gray-900"><?php echo htmlspecialchars($value); ?></span>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
         <div class="px-6 py-4 border-b">
             <h1 class="text-xl font-bold">Liste des utilisateurs inscrits</h1>
