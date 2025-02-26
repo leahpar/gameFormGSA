@@ -24,6 +24,6 @@ Options -Indexes
 <Files "admin.php">
     AuthType Basic
     AuthName "Administration"
-    AuthUserFile /home/raphael/smartquiz/gameFormGSA/config/htpasswd
+    AuthUserFile /home/raphael/smartquiz/2025-beauvais/config/htpasswd
     Require valid-user
 </Files>
