@@ -28,6 +28,7 @@ Ce projet suit le principe KISS (Keep It Simple, Stupid) en minimisant les dépe
 │   ├── formulaire.php   # Formulaire d'inscription
 │   ├── validation.php   # Page de confirmation
 │   ├── admin.php        # Liste des utilisateurs
+│   ├── ...
 │   └── css/
 │       └── tailwind.css # CSS compilé
 └── src/
@@ -74,7 +75,3 @@ Ce projet suit le principe KISS (Keep It Simple, Stupid) en minimisant les dépe
 - Utilisation des types HTML5 pour la validation côté client
 - Validation côté serveur avec filter_input() et les filtres PHP natifs
 - Vérification des doublons via la lecture de Google Sheets
-
-## Évolutivité
-
-La structure est conçue pour faciliter l'ajout de nouveaux champs dans le formulaire en minimisant les modifications nécessaires.

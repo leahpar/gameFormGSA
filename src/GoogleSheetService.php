@@ -123,7 +123,7 @@ class GoogleSheetService
         $dateNow = date('d/m/Y H:i:s');
         
         // Préparer la mise à jour
-        $range = 'F' . $rowIndex; // Colonne F (Tirage) pour la ligne correspondante
+        $range = 'I' . $rowIndex; // Colonne I (Tirage) pour la ligne correspondante
         $valueRange = new ValueRange();
         $valueRange->setValues([[$dateNow]]);
         
