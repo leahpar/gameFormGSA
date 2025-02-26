@@ -59,7 +59,7 @@ class GoogleSheetService
 
         $this->service->spreadsheets_values->append(
             $this->spreadsheetId,
-            'A:E', // Plage correspondant aux données (nom, prénom, email, téléphone, date)
+            'A:F', // Plage correspondant aux données (nom, prénom, email, téléphone, date, tirage)
             $valueRange,
             ['valueInputOption' => 'RAW']
         );
@@ -77,4 +77,68 @@ class GoogleSheetService
 
         return $response->getValues() ?? [];
     }
+
+    /**
+     * Tire un joueur au hasard parmi ceux qui n'ont pas encore été tirés
+     * @return array|null Les données du joueur tiré ou null si aucun joueur disponible
+     */
+    public function drawRandomPlayer(): ?array
+    {
+        // Récupérer toutes les données
+        $allData = $this->getAllData();
+        
+        // Stocker l'en-tête séparément
+        //$headers = $allData[0];
+        
+        // Récupérer les index des colonnes importantes
+        $drawDateIndex = 5; //array_search('Tirage', $headers, true);
+        
+        // Filtrer pour obtenir uniquement les joueurs non tirés (après l'en-tête)
+        $availablePlayers = [];
+        $rowIndexes = []; // Pour stocker les index des lignes correspondantes
+        
+        for ($i = 1; $i < count($allData); $i++) {
+            $player = $allData[$i];
+            
+            // Vérifier si le joueur a déjà été tiré (colonne Tirage vide)
+            $drawDate = $player[$drawDateIndex] ?? "";
+            
+            if (empty($drawDate)) {
+                $availablePlayers[] = $player;
+                $rowIndexes[] = $i + 1; // +1 car les index de Google Sheets commencent à 1, et on a déjà l'en-tête
+            }
+        }
+        
+        // Si aucun joueur disponible, retourner null
+        if (empty($availablePlayers)) {
+            return null;
+        }
+        
+        // Tirer un joueur au hasard
+        $randomIndex = array_rand($availablePlayers);
+        $drawnPlayer = $availablePlayers[$randomIndex];
+        $rowIndex = $rowIndexes[$randomIndex];
+        
+        // Mettre à jour la date de tirage dans Google Sheets
+        $dateNow = date('d/m/Y H:i:s');
+        
+        // Préparer la mise à jour
+        $range = 'F' . $rowIndex; // Colonne F (Tirage) pour la ligne correspondante
+        $valueRange = new ValueRange();
+        $valueRange->setValues([[$dateNow]]);
+        
+        // Effectuer la mise à jour
+        $this->service->spreadsheets_values->update(
+            $this->spreadsheetId,
+            $range,
+            $valueRange,
+            ['valueInputOption' => 'RAW']
+        );
+        
+        // Ajouter la date de tirage aux données du joueur retourné
+        $drawnPlayer[$drawDateIndex] = $dateNow;
+        
+        return $drawnPlayer;
+    }
+
 }

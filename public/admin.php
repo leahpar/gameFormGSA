@@ -22,6 +22,12 @@ array_shift($usersData);
 
 <?php include 'header.php' ?>
 <div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">Administration</h1>
+        <a href="tirage.php" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150">
+            Accéder au tirage au sort
+        </a>
+    </div>
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
         <div class="px-6 py-4 border-b">
             <h1 class="text-xl font-bold">Liste des utilisateurs inscrits</h1>
