@@ -42,6 +42,34 @@
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500">
             </div>
             
+            <div>
+                <label for="code_postal" class="block text-sm font-medium text-gray-700">Code postal</label>
+                <input type="text" id="code_postal" name="code_postal" required pattern="[0-9]{5}"
+                       value="<?= htmlspecialchars($data['code_postal']??'') ?>"
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label for="travaux" class="block text-sm font-medium text-gray-700">Avez-vous prévu des travaux dans votre habitation ?</label>
+                <select id="travaux" name="travaux" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500">
+                    <option value="" <?= empty($data['travaux']) ? 'selected' : '' ?>>Sélectionnez</option>
+                    <option value="oui" <?= isset($data['travaux']) && $data['travaux'] === 'oui' ? 'selected' : '' ?>>Oui</option>
+                    <option value="non" <?= isset($data['travaux']) && $data['travaux'] === 'non' ? 'selected' : '' ?>>Non</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="annee" class="block text-sm font-medium text-gray-700">Si oui, en quelle année ?</label>
+                <select id="annee" name="annee"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500">
+                    <option value="">Sélectionnez</option>
+                    <option value="2025" <?= ($data['annee']??0) == 2025 ? 'selected' : '' ?>>2025</option>
+                    <option value="2026" <?= ($data['annee']??0) == 2026 ? 'selected' : '' ?>>2026</option>
+                    <option value="2027" <?= ($data['annee']??0) == 2027 ? 'selected' : '' ?>>2027 ou plus</option>
+                </select>
+            </div>
+            
             <div class="flex items-start">
                 <div class="flex items-center h-5">
                     <input id="accept_terms" name="accept_terms" type="checkbox" required

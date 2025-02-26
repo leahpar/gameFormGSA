@@ -37,11 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $validator = new FormValidator();
 
         $data = [
-            'nom'       => $validator->sanitizeInput($_POST['nom']       ?? ''),
-            'prenom'    => $validator->sanitizeInput($_POST['prenom']    ?? ''),
-            'email'     => $validator->sanitizeEmail($_POST['email']     ?? ''),
-            'telephone' => $validator->sanitizeTel  ($_POST['telephone'] ?? ''),
-            'date'      => date('Y-m-d H:i:s') // Date d'inscription
+            'nom'         => $validator->sanitizeInput($_POST['nom']         ?? ''),
+            'prenom'      => $validator->sanitizeInput($_POST['prenom']      ?? ''),
+            'email'       => $validator->sanitizeEmail($_POST['email']       ?? ''),
+            'telephone'   => $validator->sanitizeTel  ($_POST['telephone']   ?? ''),
+            'code_postal' => $validator->sanitizeInput($_POST['code_postal'] ?? ''),
+            'travaux'     => $validator->sanitizeInput($_POST['travaux']     ?? ''),
+            'annee'       => $validator->sanitizeInput($_POST['annee']       ?? ''),
+            'date'        => date('Y-m-d H:i:s'),
+            'tirage'      => null,
         ];
 
         // Validation des données

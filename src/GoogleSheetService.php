@@ -59,7 +59,7 @@ class GoogleSheetService
 
         $this->service->spreadsheets_values->append(
             $this->spreadsheetId,
-            'A:F', // Plage correspondant aux données (nom, prénom, email, téléphone, date, tirage)
+            'A:I', // Plage correspondant aux données (nom, prénom, email, téléphone, code_postal, travaux, annee, date, tirage)
             $valueRange,
             ['valueInputOption' => 'RAW']
         );
@@ -91,7 +91,7 @@ class GoogleSheetService
         //$headers = $allData[0];
         
         // Récupérer les index des colonnes importantes
-        $drawDateIndex = 5; //array_search('Tirage', $headers, true);
+        $drawDateIndex = 8; //array_search('Tirage', $headers, true);
         
         // Filtrer pour obtenir uniquement les joueurs non tirés (après l'en-tête)
         $availablePlayers = [];

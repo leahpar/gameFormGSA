@@ -56,10 +56,19 @@ class FormValidator
         return $phone;
     }
 
+    /**
+     * Valide un code postal français (5 chiffres)
+     */
+    public function validatePostalCode(string $postalCode): bool
+    {
+        return preg_match('/^\d{5}$/', $postalCode) === 1;
+    }
+    
     public function validateData(array $data)
     {
-        return !$this->validateRequiredFields($data, ['nom', 'prenom', 'email', 'telephone'])
+        return !$this->validateRequiredFields($data, ['nom', 'prenom', 'email', 'telephone', 'code_postal', 'travaux'])
             || !$this->validateEmail($data['email'])
-            || !$this->validatePhone($data['telephone']);
+            || !$this->validatePhone($data['telephone'])
+            || !$this->validatePostalCode($data['code_postal']);
     }
 }
