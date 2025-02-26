@@ -21,9 +21,9 @@ Options -Indexes
     RewriteRule .* index.php [F,L]
 </IfModule>
 
-<Files "admin2.php">
+<Files "admin.php">
     AuthType Basic
-    AuthName "Zone d'administration"
-    AuthUserFile /chemin/vers/.htpasswd
+    AuthName "Administration"
+    AuthUserFile /home/raphael/smartquiz/gameFormGSA/config/htpasswd
     Require valid-user
 </Files>
